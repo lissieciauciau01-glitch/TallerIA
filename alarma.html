@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reloj Digital con Alarma</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 25px;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.4);
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            text-align: center;
+            color: #1e3c72;
+            margin-bottom: 30px;
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .header-controls {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            gap: 10px;
+        }
+
+        .toggle-format {
+            background: #2a5298;
+            border: none;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .toggle-format:hover {
+            background: #1e3c72;
+            transform: scale(1.05);
+        }
+
+        /* RELOJ DIGITAL */
+        .reloj-section {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(30, 60, 114, 0.3);
+        }
+
+        #saludo {
+            font-size: 24px;
+            color: #ffd700;
+            font-weight: 700;
+            margin-bottom: 15px;
+            letter-spacing: 1px;
+            text-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
+        }
+
+        #relojDigital {
+            font-size: 60px;
+            font-weight: 700;
+            color: #00ff88;
+            font-family: 'Courier New', monospace;
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px rgba(0, 255, 136, 0.5);
+            margin-bottom: 15px;
+        }
+
+        .fecha {
+            color: #b0c4de;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+
+        /* SECCIÓN DE ALARMA */
+        .alarma-section {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 25px;
+            border-left: 5px solid #ff6b6b;
+        }
+
+        .alarma-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .alarm-icon {
+            font-size: 24px;
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        input[type="time"] {
+            flex: 1;
+            min-width: 150px;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+            font-family: 'Courier New', monospace;
+        }
+
+        input[type="time"]:focus {
+            outline: none;
+            border-color: #2a5298;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        #btnAlarma {
+            background: #ff6b6b;
+            color: white;
+            flex: 1;
+        }
+
+        #btnAlarma:hover {
+            background: #ee5a52;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 107, 107, 0.3);
+        }
+
+        #btnAlarma:active {
+            transform: translateY(0);
+        }
+
+        #btnAlarma.activo {
+            background: #51cf66;
+        }
+
+        #btnAlarma.activo:hover {
+            background: #40c057;
+        }
+
+        #btnDetener {
+            background: #868e96;
+            color: white;
+            display: none;
+        }
+
+        #btnDetener:hover {
+            background: #748089;
+            transform: translateY(-2px);
+        }
+
+        .alarma-info {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 15px;
+            border: 1px solid #ddd;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #estadoAlarma {
+            text-align: center;
+            color: #666;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .alarma-activa {
+            color: #51cf66;
+            font-weight: 700;
+        }
+
+        @keyframes alarmaPulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        .alarma-activa.activada {
+            animation: alarmaPulse 0.5s infinite;
+        }
+
+        .sonando {
+            animation: flashAlarm 0.5s infinite;
+            background: #ff6b6b !important;
+        }
+
+        @keyframes flashAlarm {
+            0%, 100% {
+                background: #ff6b6b;
+            }
+            50% {
+                background: #ff8787;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 25px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            #saludo {
+                font-size: 20px;
+            }
+
+            #relojDigital {
+                font-size: 45px;
+                letter-spacing: 2px;
+            }
+
+            .input-group {
+                flex-direction: column;
+            }
+
+            input[type="time"] {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>⏰ Reloj Digital con Alarma</h1>
+
+        <div class="header-controls">
+            <button class="toggle-format" id="btnToggleFormato">Cambiar a 12h</button>
+        </div>
+
+        <!-- RELOJ DIGITAL -->
+        <div class="reloj-section">
+            <div id="saludo">Buenos días</div>
+            <div id="relojDigital">00:00:00</div>
+            <div class="fecha" id="fecha">00/00/0000</div>
+        </div>
+
+        <!-- SECCIÓN DE ALARMA -->
+        <div class="alarma-section">
+            <div class="alarma-title">
+                <span class="alarm-icon">🔔</span>
+                Configurar Alarma
+            </div>
+
+            <div class="input-group">
+                <input type="time" id="inputAlarma" placeholder="HH:MM">
+            </div>
+
+            <div class="button-group">
+                <button id="btnAlarma">Activar Alarma</button>
+                <button id="btnDetener">Detener</button>
+            </div>
+
+            <div class="alarma-info">
+                <div id="estadoAlarma">Alarma desactivada</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="Alarma.js"></script>
+</body>
+</html>

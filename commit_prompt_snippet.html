@@ -1,0 +1,117 @@
+<!-- Fragmento listo para pegar dentro del <body> de tu HTML -->
+<!-- Copia desde <style> hasta </script> y pégalo donde quieras mostrar la tarjeta -->
+<style>
+  :root{--bg:#f7f9ff;--card:#ffffff;--accent:#6b8cff;--muted:#6b7280}
+  .commit-card{max-width:920px;margin:28px auto;padding:22px;border-radius:14px;background:linear-gradient(180deg,var(--card),#fbfdff);box-shadow:0 18px 40px rgba(11,22,70,0.06);border:1px solid rgba(14,30,80,0.04);font-family:Inter,system-ui,Segoe UI,Arial;color:#0f172a}
+  .commit-card h2{margin:0 0 6px;color:var(--accent);font-size:20px}
+  .commit-card p{margin:0 0 12px;color:#475569}
+  .commit-card ul{margin:8px 0 12px 18px}
+  .cmd{display:block;background:#f3f4f6;color:#0f172a;padding:10px;border-radius:8px;font-family:Consolas,monospace;margin:8px 0;border:1px solid #e6e9ef;white-space:pre-wrap}
+  .row{display:flex;gap:8px;align-items:center;justify-content:flex-end}
+  .btn{background:linear-gradient(180deg,var(--accent),#4866ff);color:white;padding:8px 12px;border-radius:10px;border:0;cursor:pointer;box-shadow:0 8px 20px rgba(75,89,255,0.12)}
+  .ghost{background:transparent;border:1px solid #e6e9ff;color:var(--accent)}
+  .muted{color:var(--muted);font-size:13px}
+  @keyframes float{0%{transform:translateY(0)}50%{transform:translateY(-6px)}100%{transform:translateY(0)}}
+  .float{animation:float 4s ease-in-out infinite}
+</style>
+
+<section class="commit-card float" aria-labelledby="commit-title">
+  <div style="display:flex;justify-content:space-between;align-items:start;gap:12px;flex-wrap:wrap">
+    <div style="flex:1;min-width:280px">
+      <h2 id="commit-title">¿Qué es un commit y por qué es importante?</h2>
+      <p class="muted">Un resumen breve y listo para usar en documentación o como tooltip en tu interfaz.</p>
+
+      <strong>Definición</strong>
+      <p>Un commit es una instantánea del estado del repositorio que guarda cambios, un mensaje descriptivo y metadatos (autor, fecha, hash).</p>
+
+      <strong>Por qué es importante</strong>
+      <ul>
+        <li><strong>Historial:</strong> ver qué cambió y cuándo.</li>
+        <li><strong>Reversión:</strong> volver a estados anteriores fácilmente.</li>
+        <li><strong>Colaboración:</strong> revisar y combinar cambios.</li>
+        <li><strong>Trazabilidad:</strong> vincular cambios a issues y despliegues.</li>
+      </ul>
+
+      <strong>Buenas prácticas</strong>
+      <ul>
+        <li>Commits pequeños y atómicos.</li>
+        <li>Mensajes claros en imperativo.</li>
+        <li>Probar antes de commitear.</li>
+        <li>Usar <code>.gitignore</code> para no subir secretos.</li>
+      </ul>
+    </div>
+
+    <aside style="width:320px;min-width:220px">
+      <div style="background:linear-gradient(180deg,#ffffff,#fbfdff);padding:12px;border-radius:10px;border:1px solid rgba(14,30,80,0.03)">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+          <div class="muted">Prompt listo</div>
+        </div>
+
+        <pre class="cmd">git status
+git add .
+git commit -m "Mensaje claro"
+git commit -am "Mensaje"
+git log
+git checkout -b rama-nueva
+git push origin rama-nueva
+git revert &lt;hash&gt;</pre>
+
+        <div class="row">
+          <button class="btn" data-action="copyPrompt">Copiar prompt</button>
+          <button class="btn ghost" data-action="openPrompt">Abrir</button>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <!-- Texto plano del prompt (útil para copiar) -->
+  <template id="commit-prompt-template">
+Definición breve
+- Un commit es una instantánea del estado del repositorio en un sistema de control de versiones (por ejemplo Git). Guarda los cambios, un mensaje descriptivo y metadatos (autor, fecha, hash).
+
+Por qué es importante
+- Historial: permite ver qué cambió y cuándo.
+- Reversión: facilita volver a estados anteriores o deshacer cambios.
+- Colaboración: otros pueden revisar, fusionar y comprender cambios.
+- Trazabilidad: liga cambios a issues, revisiones y despliegues.
+- Calidad: fomenta commits atómicos y mensajes claros, lo que mejora mantenimiento y depuración.
+
+Buenas prácticas rápidas
+- Commits pequeños y atómicos (una idea por commit).
+- Mensajes en imperativo y claros: "Añade validación en suma".
+- Ejecutar pruebas antes de commitear.
+- Ignorar archivos generados y secretos (.gitignore, no subir claves).
+
+Comandos básicos
+```bash
+git status
+git add .
+git commit -m "Mensaje claro"
+git commit -am "Mensaje"
+git log
+git checkout -b rama-nueva
+git push origin rama-nueva
+git revert <hash>
+```
+  </template>
+
+  <script>
+    (function(root){
+      const container = root.currentScript ? root.currentScript.parentElement : document.currentScript.parentElement;
+      const copyBtn = container.querySelector('[data-action="copyPrompt"]');
+      const openBtn = container.querySelector('[data-action="openPrompt"]');
+      const tpl = container.querySelector('#commit-prompt-template');
+      const text = tpl ? tpl.innerText.trim() : '';
+
+      if(copyBtn){
+        copyBtn.addEventListener('click', async ()=>{
+          try{ await navigator.clipboard.writeText(text); copyBtn.textContent = 'Copiado ✓'; setTimeout(()=>copyBtn.textContent='Copiar prompt',1400);}catch(e){ alert('No se pudo copiar automáticamente. Selecciona y copia manualmente.'); }
+        });
+      }
+
+      if(openBtn){
+        openBtn.addEventListener('click', ()=>{ const w = window.open(); w.document.write('<pre>'+text.replace(/</g,'&lt;')+'</pre>'); w.document.title = 'Prompt: commit'; });
+      }
+    })(document);
+  </script>
+</section>

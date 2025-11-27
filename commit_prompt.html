@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Prompt: ¿Qué es un commit?</title>
+  <style>
+    :root{--bg:#f7f9ff;--card:#ffffff;--accent:#6b8cff;--muted:#6b7280}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Arial;background:linear-gradient(180deg,#f0f4ff 0%, #fbfdff 100%);color:#0f172a}
+    .wrap{min-height:100%;display:flex;align-items:center;justify-content:center;padding:48px}
+    .card{width:min(920px,96%);background:var(--card);border-radius:14px;padding:26px;box-shadow:0 18px 40px rgba(11,22,70,0.06);transform-origin:center;animation:fadeInUp .6s both;border:1px solid rgba(14,30,80,0.04)}
+    h1{margin:0 0 8px;font-size:20px;color:var(--accent)}
+    p.lead{margin:0 0 14px;color:#475569}
+    .columns{display:grid;grid-template-columns:1fr 360px;gap:18px}
+    ul{margin:10px 0 16px 18px;color:inherit}
+    pre.cmd{display:block;background:#f3f4f6;color:#0f172a;padding:12px;border-radius:8px;font-family:Consolas,monospace;margin:8px 0;border:1px solid #e6e9ef;white-space:pre-wrap}
+    .side{background:linear-gradient(180deg,#ffffff,#fbfdff);padding:12px;border-radius:10px;border:1px solid rgba(14,30,80,0.03)}
+    .btn{background:linear-gradient(180deg,var(--accent),#4866ff);color:white;padding:8px 12px;border-radius:10px;border:0;cursor:pointer;box-shadow:0 8px 20px rgba(75,89,255,0.12)}
+    .ghost{background:transparent;border:1px solid #e6e9ff;color:var(--accent)}
+    .muted{color:var(--muted);font-size:13px}
+    .row{display:flex;gap:8px;align-items:center}
+    @keyframes fadeInUp{from{opacity:0;transform:translateY(10px) scale(.995)}to{opacity:1;transform:none}}
+    .pulse{animation:float 4s ease-in-out infinite}
+    @keyframes float{0%{transform:translateY(0)}50%{transform:translateY(-6px)}100%{transform:translateY(0)}}
+    .prompt-box{background:#0b1220;color:#e6eefb;padding:12px;border-radius:8px;font-family:Consolas,monospace;font-size:13px;max-height:260px;overflow:auto;border:1px solid rgba(255,255,255,0.04)}
+    details{margin-top:8px}
+    code{background:rgba(11,22,70,0.04);padding:2px 6px;border-radius:6px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <article class="card pulse" role="article" aria-labelledby="title">
+      <h1 id="title">Prompt listo: ¿Qué es un commit y por qué es importante?</h1>
+      <p class="lead">Este archivo contiene la respuesta estilizada y un prompt listo para copiar e insertar en tu HTML. Usa el botón para copiar el texto completo del prompt.</p>
+
+      <div class="columns">
+        <section>
+          <strong>Vista</strong>
+          <ul>
+            <li><strong>Definición:</strong> Un commit es una instantánea del estado del repositorio que guarda cambios, mensaje y metadatos.</li>
+            <li><strong>Importancia:</strong> historial, reversión, colaboración, trazabilidad y mejores prácticas.</li>
+            <li><strong>Buenas prácticas:</strong> commits atómicos, mensajes en imperativo, probar antes de commitear, usar `.gitignore`.</li>
+          </ul>
+
+          <strong>Comandos básicos</strong>
+          <pre class="cmd">git status
+git add .
+git commit -m "Mensaje claro"
+git commit -am "Mensaje"
+git log
+git checkout -b rama-nueva
+git push origin rama-nueva
+git revert &lt;hash&gt;</pre>
+        </section>
+
+        <aside class="side">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div class="muted">Prompt listo para insertar</div>
+            <div class="row">
+              <button class="btn" id="copyPrompt">Copiar prompt</button>
+              <button class="btn ghost" id="openPrompt">Abrir en nueva pestaña</button>
+            </div>
+          </div>
+
+          <details>
+            <summary class="muted" style="cursor:pointer;margin-top:8px">Ver prompt (texto plano)</summary>
+            <pre class="prompt-box" id="promptText"></pre>
+          </details>
+
+          <p class="muted" style="margin-top:10px;font-size:13px">Pega el prompt donde necesites. Si quieres, lo inserto directamente en `commit_explanation.html`.</p>
+        </aside>
+      </div>
+    </article>
+  </div>
+
+  <script>
+    // Contenido del prompt: la respuesta de la explicación lista para pegar
+    const prompt = `Definición breve\n- Un commit es una instantánea del estado del repositorio en un sistema de control de versiones (por ejemplo Git). Guarda los cambios, un mensaje descriptivo y metadatos (autor, fecha, hash).\n\nPor qué es importante\n- Historial: permite ver qué cambió y cuándo.\n- Reversión: facilita volver a estados anteriores o deshacer cambios.\n- Colaboración: otros pueden revisar, fusionar y comprender cambios.\n- Trazabilidad: liga cambios a issues, revisiones y despliegues.\n- Calidad: fomenta commits atómicos y mensajes claros, lo que mejora mantenimiento y depuración.\n\nBuenas prácticas rápidas\n- Commits pequeños y atómicos (una idea por commit).\n- Mensajes en imperativo y claros: "Añade validación en suma".\n- Ejecutar pruebas antes de commitear.\n- Ignorar archivos generados y secretos (.gitignore, no subir claves).\n\nComandos básicos\n```bash\ngit status\ngit add .\ngit commit -m "Mensaje claro"\ngit commit -am "Mensaje"\ngit log\ngit checkout -b rama-nueva\ngit push origin rama-nueva\ngit revert <hash>\n```\n`;
+
+    // Poner el prompt en el elemento visual
+    document.getElementById('promptText').innerText = prompt;
+
+    const copyBtn = document.getElementById('copyPrompt');
+    const openBtn = document.getElementById('openPrompt');
+
+    copyBtn.addEventListener('click', async ()=>{
+      try{
+        await navigator.clipboard.writeText(prompt);
+        copyBtn.textContent = 'Copiado ✓';
+        setTimeout(()=>copyBtn.textContent='Copiar prompt',1500);
+      }catch(e){
+        alert('No se pudo copiar automáticamente. Selecciona y copia manualmente.');
+      }
+    });
+
+    openBtn.addEventListener('click', ()=>{
+      const w = window.open();
+      w.document.write('<pre>'+prompt.replace(/</g,'&lt;')+'</pre>');
+      w.document.title = 'Prompt: ¿Qué es un commit?';
+    });
+  </script>
+</body>
+</html>

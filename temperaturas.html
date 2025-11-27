@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conversor de Temperaturas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #e8f4f8 0%, #f0e8f8 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(100, 150, 200, 0.15);
+            padding: 40px;
+            max-width: 450px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: #5a7fa6;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #9db5cc;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .input-group {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            color: #6b8ab5;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #d4e4f0;
+            border-radius: 10px;
+            font-size: 16px;
+            color: #5a7fa6;
+            background: #f8fbfd;
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #a8cce8;
+            background: #ffffff;
+            box-shadow: 0 0 0 3px rgba(168, 204, 232, 0.1);
+        }
+
+        .button-group {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        #btnConvertir {
+            background: linear-gradient(135deg, #a8cce8 0%, #8eb5d6 100%);
+            color: white;
+        }
+
+        #btnConvertir:hover {
+            background: linear-gradient(135deg, #92bade 0%, #78a3c4 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(140, 180, 220, 0.3);
+        }
+
+        #btnLimpiar {
+            background: #e8f0f6;
+            color: #7a9bc3;
+        }
+
+        #btnLimpiar:hover {
+            background: #dce8f0;
+            transform: translateY(-2px);
+        }
+
+        .resultado {
+            background: linear-gradient(135deg, #f0f8fb 0%, #f5f0fb 100%);
+            border: 2px solid #dce8f0;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            display: none;
+        }
+
+        .resultado.visible {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .resultado h3 {
+            color: #5a7fa6;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .temp-box {
+            background: white;
+            border-radius: 10px;
+            padding: 12px;
+            margin-bottom: 10px;
+            color: #6b8ab5;
+            font-size: 14px;
+        }
+
+        .temp-box span {
+            font-weight: 700;
+            color: #8eb5d6;
+            font-size: 18px;
+        }
+
+        .error {
+            background: #fde8e8;
+            border: 2px solid #f0b0b0;
+            color: #c75555;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            display: none;
+            margin-top: 15px;
+        }
+
+        .error.visible {
+            display: block;
+        }
+
+        .info {
+            background: #e8f4f8;
+            border-left: 4px solid #a8cce8;
+            padding: 12px;
+            margin-top: 20px;
+            border-radius: 5px;
+            font-size: 12px;
+            color: #6b8ab5;
+            line-height: 1.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌡️ Conversor de Temperaturas</h1>
+        <p class="subtitle">Convierte fácilmente entre escalas</p>
+
+        <div class="input-group">
+            <label for="inputCelsius">Ingresa temperatura en Celsius (°C)</label>
+            <input 
+                type="number" 
+                id="inputCelsius" 
+                placeholder="Ej: 25"
+                step="0.01"
+            >
+        </div>
+
+        <div class="button-group">
+            <button id="btnConvertir">Convertir</button>
+            <button id="btnLimpiar">Limpiar</button>
+        </div>
+
+        <div id="resultado" class="resultado">
+            <h3>Resultados:</h3>
+            <div class="temp-box">
+                Celsius: <span id="resCelsius">0</span>°C
+            </div>
+            <div class="temp-box">
+                Fahrenheit: <span id="resFahrenheit">0</span>°F
+            </div>
+            <div class="temp-box">
+                Kelvin: <span id="resKelvin">0</span>K
+            </div>
+        </div>
+
+        <div id="error" class="error"></div>
+
+        <div class="info">
+            <strong>Fórmulas utilizadas:</strong><br>
+            • Celsius → Fahrenheit: (C × 9/5) + 32<br>
+            • Celsius → Kelvin: C + 273.15
+        </div>
+    </div>
+
+    <script src="temperaturas.js"></script>
+    <script>
+        const btnConvertir = document.getElementById('btnConvertir');
+        const btnLimpiar = document.getElementById('btnLimpiar');
+        const inputCelsius = document.getElementById('inputCelsius');
+        const resultado = document.getElementById('resultado');
+        const error = document.getElementById('error');
+
+        btnConvertir.addEventListener('click', function() {
+            const valor = parseFloat(inputCelsius.value);
+            const conversiones = convertirTemperatura(valor);
+
+            // Limpiar error previo
+            error.classList.remove('visible');
+            error.textContent = '';
+
+            if (conversiones.error) {
+                error.textContent = conversiones.error;
+                error.classList.add('visible');
+                resultado.classList.remove('visible');
+            } else {
+                document.getElementById('resCelsius').textContent = conversiones.celsius;
+                document.getElementById('resFahrenheit').textContent = conversiones.fahrenheit;
+                document.getElementById('resKelvin').textContent = conversiones.kelvin;
+                resultado.classList.add('visible');
+            }
+        });
+
+        btnLimpiar.addEventListener('click', function() {
+            inputCelsius.value = '';
+            resultado.classList.remove('visible');
+            error.classList.remove('visible');
+            error.textContent = '';
+            inputCelsius.focus();
+        });
+
+        // Convertir al presionar Enter
+        inputCelsius.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                btnConvertir.click();
+            }
+        });
+
+        // Focus en el input al cargar
+        inputCelsius.focus();
+    </script>
+</body>
+</html>

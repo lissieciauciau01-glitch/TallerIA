@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="color-scheme" content="light" />
+  <title>¿Qué es un commit y por qué es importante?</title>
+  <style>
+    :root{--bg:#f5f7fb;--card:#ffffff;--accent:#6b8cff;--muted:#6b7280}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui,Segoe UI,Arial;background:linear-gradient(180deg,#eef2ff 0%, #f8fafc 100%);background-color:var(--bg);color:#0f172a;color-scheme:light}
+    .wrap{min-height:100%;display:flex;align-items:center;justify-content:center;padding:48px}
+    .card{width:min(860px,96%);background:var(--card);border-radius:16px;padding:28px;box-shadow:0 12px 40px rgba(11,22,70,0.08);transform-origin:center;opacity:0;animation:fadeInUp .6s .08s both;color:#0b1220;border:1px solid #eaedf3}
+    h1{margin:0 0 8px;font-size:20px;color:var(--accent)}
+    p.lead{margin:0 0 16px;color:#475569}
+    ul{margin:12px 0 18px 20px;color:inherit}
+    li{color:inherit}
+    /* Code block: usar fondo claro y texto oscuro para mejor contraste */
+    /* bloque de comandos: fondo claro y texto oscuro (evita modo oscuro forzado por el navegador) */
+    pre.cmd, pre.cmd .cmd, .cmd{display:block;background:#f3f4f6;color:#0f172a;padding:10px;border-radius:8px;font-family:Consolas,monospace;margin:12px 0;border:1px solid #e6e9ef}
+    .row{display:flex;gap:12px;align-items:center}
+    .btn{background:linear-gradient(180deg,var(--accent),#4866ff);color:white;padding:8px 12px;border-radius:10px;border:0;cursor:pointer;box-shadow:0 6px 18px rgba(75,89,255,0.18)}
+    .ghost{background:transparent;border:1px solid #e6e9ff;color:var(--accent)}
+    footer{margin-top:18px;color:#475569;font-size:13px}
+    /* animations */
+    @keyframes fadeInUp{from{opacity:0;transform:translateY(10px) scale(.995)}to{opacity:1;transform:none}}
+    .pulse{animation:float 4s ease-in-out infinite}
+    @keyframes float{0%{transform:translateY(0)}50%{transform:translateY(-6px)}100%{transform:translateY(0)}}
+    pre{white-space:pre-wrap;word-break:break-word}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <article class="card pulse" role="article" aria-labelledby="title">
+      <h1 id="title">¿Qué es un commit y por qué es importante?</h1>
+      <p class="lead">Un commit es una captura del estado del proyecto en un sistema de control de versiones (por ejemplo Git). Guarda cambios, mensaje y metadatos (autor, fecha, hash).</p>
+
+      <strong>Por qué es importante</strong>
+      <ul>
+        <li><strong>Historial:</strong> registra qué cambió, cuándo y por qué.</li>
+        <li><strong>Reversión:</strong> permite volver a estados anteriores fácilmente.</li>
+        <li><strong>Colaboración:</strong> otros pueden revisar y combinar cambios.</li>
+        <li><strong>Trazabilidad:</strong> vincula cambios a issues y despliegues.</li>
+        <li><strong>Buenas prácticas:</strong> facilita branches, PRs y bisect.</li>
+      </ul>
+
+      <strong>Buenas prácticas rápidas</strong>
+      <ul>
+        <li>Commits pequeños y atómicos (una idea por commit).</li>
+        <li>Mensajes claros en modo imperativo: "Añade validación en suma".</li>
+        <li>Probar antes de commitear.</li>
+        <li>No incluir secretos ni archivos generados (usar <code>.gitignore</code>).</li>
+      </ul>
+
+      <strong>Comandos básicos</strong>
+      <pre class="cmd" id="commands">git add .                      # añade cambios al área
+git commit -m "Mensaje claro"   # crea un commit
+git commit -am "Mensaje"        # añade y commitea archivos ya trackeados
+git log                         # ver historial
+git checkout -b rama-nueva      # crear y cambiar a una rama
+git push origin rama-nueva      # subir commits al remoto
+git revert &lt;hash&gt;               # deshacer creando un nuevo commit</pre>
+
+      <div class="row">
+        <button class="btn" id="copyBtn">Copiar comandos</button>
+        <button class="btn ghost" id="openBtn">Abrir en nueva pestaña</button>
+      </div>
+
+      <footer>¿Quieres que ajuste el estilo o que genere un `README.md` con estos comandos? Pulsa copiar y pégalo donde necesites.</footer>
+    </article>
+  </div>
+
+  <script>
+    const copyBtn = document.getElementById('copyBtn');
+    const openBtn = document.getElementById('openBtn');
+    const cmds = document.getElementById('commands').innerText;
+
+    copyBtn.addEventListener('click', async ()=>{
+      try{
+        await navigator.clipboard.writeText(cmds);
+        copyBtn.textContent = 'Copiado ✓';
+        setTimeout(()=>copyBtn.textContent='Copiar comandos',1500);
+      }catch(e){
+        alert('No se pudo copiar automáticamente. Selecciona y copia manualmente.');
+      }
+    });
+
+    openBtn.addEventListener('click', ()=>{
+      const w = window.open();
+      w.document.write('<pre>'+document.getElementById('commands').innerText.replace(/</g,'&lt;')+'</pre>');
+      w.document.title = 'Comandos Git';
+    });
+  </script>
+</body>
+</html>

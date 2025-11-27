@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Calculadora - TallerIA</title>
+  <link rel="stylesheet" href="calculadora.css">
+</head>
+<body>
+  <main class="calc">
+    <h1>Calculadora</h1>
+
+    <div class="inputs">
+      <label>
+        Número 1
+        <input id="num1" type="number" placeholder="0" step="any">
+      </label>
+
+      <label>
+        Número 2
+        <input id="num2" type="number" placeholder="0" step="any">
+      </label>
+    </div>
+
+    <div class="operations">
+      <button data-op="add">+</button>
+      <button data-op="sub">−</button>
+      <button data-op="mul">×</button>
+      <button data-op="div">÷</button>
+      <button id="clear">Limpiar</button>
+    </div>
+
+    <div id="result" class="result">Resultado: <span id="resValue">—</span></div>
+
+    <p class="note">Introduce dos números y pulsa una operación.</p>
+  </main>
+
+  <script src="calculadora.js"></script>
+</body>
+</html>
