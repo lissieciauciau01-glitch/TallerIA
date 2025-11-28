@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rick and Morty - Buscador de Personajes</title>
+    <meta name="description" content="Explora todos los personajes de Rick and Morty con nuestro buscador interactivo">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>🛸 Rick and Morty</h1>
+            <p class="subtitle">Explora el multiverso de personajes</p>
+
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Buscar personaje por nombre..." autocomplete="off">
+                <button id="searchBtn">Buscar</button>
+            </div>
+        </header>
+
+        <main>
+            <div id="characterGrid" class="character-grid">
+                <!-- Las tarjetas se generarán aquí dinámicamente -->
+            </div>
+
+            <div class="pagination">
+                <button id="prevBtn" class="page-btn" disabled>← Anterior</button>
+                <span id="pageInfo" class="page-info">Página 1</span>
+                <button id="nextBtn" class="page-btn">Siguiente →</button>
+            </div>
+        </main>
+    </div>
+
+    <script src="api.js"></script>
+</body>
+
+</html>

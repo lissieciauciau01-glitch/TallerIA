@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cuidando a Taco 🐱 - Tamagotchi</title>
+    <meta name="description" content="Cuida de Taco, tu mascota virtual con IA básica">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>🐱 Cuidando a Taco</h1>
+            <p class="subtitle">Tu mascota virtual con IA</p>
+        </header>
+
+        <!-- Display de Taco -->
+        <div class="taco-display">
+            <div id="tacoAvatar" class="taco-avatar">🐱</div>
+            <div id="tacoThought" class="taco-thought">¡Hola! Soy Taco 😺</div>
+        </div>
+
+        <!-- Estadísticas -->
+        <div class="stats-container">
+            <div class="stat">
+                <div class="stat-header">
+                    <span class="stat-label">🍽️ Hambre</span>
+                    <span id="hungerValue" class="stat-value">50</span>
+                </div>
+                <div class="stat-bar">
+                    <div id="hungerBar" class="stat-fill hunger" style="width: 50%;"></div>
+                </div>
+            </div>
+
+            <div class="stat">
+                <div class="stat-header">
+                    <span class="stat-label">⚡ Energía</span>
+                    <span id="energyValue" class="stat-value">50</span>
+                </div>
+                <div class="stat-bar">
+                    <div id="energyBar" class="stat-fill energy" style="width: 50%;"></div>
+                </div>
+            </div>
+
+            <div class="stat">
+                <div class="stat-header">
+                    <span class="stat-label">😊 Felicidad</span>
+                    <span id="happinessValue" class="stat-value">50</span>
+                </div>
+                <div class="stat-bar">
+                    <div id="happinessBar" class="stat-fill happiness" style="width: 50%;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Acciones -->
+        <div class="actions">
+            <button id="feedBtn" class="action-btn feed">
+                🍖
+                <span class="action-label">Alimentar</span>
+            </button>
+            <button id="playBtn" class="action-btn play">
+                🎾
+                <span class="action-label">Jugar</span>
+            </button>
+            <button id="sleepBtn" class="action-btn sleep">
+                💤
+                <span class="action-label">Dormir</span>
+            </button>
+        </div>
+
+        <!-- Info -->
+        <div class="info-box">
+            <strong>💡 Consejo</strong>
+            <p>Taco es inteligente y te dirá lo que necesita. ¡Mantén sus estadísticas equilibradas!</p>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+
+</html>

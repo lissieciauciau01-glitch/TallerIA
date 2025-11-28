@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Buscador de Razas de Perros</title>
+    <meta name="description" content="Explora todas las razas de perros con nuestro buscador interactivo">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>🐕 Buscador de Razas de Perros</h1>
+            <p class="subtitle">Descubre todas las razas de perros del mundo</p>
+
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="Buscar raza de perro..." autocomplete="off">
+                <button id="searchBtn">🔍 Buscar</button>
+            </div>
+        </header>
+
+        <div class="controls">
+            <button id="showAllBtn">Mostrar Todas las Razas</button>
+            <button id="randomBtn">🎲 Razas Aleatorias</button>
+        </div>
+
+        <main>
+            <div id="dogsGrid" class="dogs-grid">
+                <!-- Las tarjetas se generarán aquí dinámicamente -->
+            </div>
+
+            <div class="pagination" id="pagination">
+                <button id="prevBtn" class="page-btn" disabled>← Anterior</button>
+                <span id="pageInfo" class="page-info">Página 1</span>
+                <button id="nextBtn" class="page-btn">Siguiente →</button>
+            </div>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>

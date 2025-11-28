@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Datos Curiosos de Gatos</title>
+    <meta name="description" content="Descubre datos curiosos e interesantes sobre gatos">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>🐱 Datos Curiosos de Gatos</h1>
+            <p class="subtitle">Descubre información fascinante sobre nuestros amigos felinos</p>
+
+            <div class="controls">
+                <button id="loadFactsBtn">🎲 Cargar Nuevos Datos</button>
+                <button id="allFactsBtn" class="btn-secondary">📚 Ver Todos los Datos</button>
+            </div>
+        </header>
+
+        <div id="statsBox" class="stats-box" style="display: none;">
+            <h3>📊 Estadísticas</h3>
+            <p id="statsText">Cargando estadísticas...</p>
+        </div>
+
+        <main>
+            <div id="factsGrid" class="facts-grid">
+                <!-- Las tarjetas se generarán aquí dinámicamente -->
+            </div>
+
+            <div class="pagination" id="pagination">
+                <button id="prevBtn" class="page-btn" disabled>← Anterior</button>
+                <span id="pageInfo" class="page-info">Página 1</span>
+                <button id="nextBtn" class="page-btn">Siguiente →</button>
+            </div>
+        </main>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>

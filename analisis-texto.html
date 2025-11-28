@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Análisis de Texto — TallerIA</title>
+  <link rel="stylesheet" href="analisis-texto.css">
+</head>
+<body>
+  <main class="app">
+    <h1 class="title">Editor de Texto — Análisis en tiempo real</h1>
+
+    <section class="editor">
+      <label for="texto" class="sr-only">Área de texto</label>
+      <textarea id="texto" placeholder="Escribe o pega tu texto aquí..." aria-label="Área de texto para análisis"></textarea>
+
+      <div class="controls">
+        <button id="btnLimpiar" class="btn btn-outline">Limpiar</button>
+        <button id="btnCopiar" class="btn btn-primary">Copiar estadísticas</button>
+      </div>
+
+      <p id="mensaje" class="mensaje" aria-live="polite"></p>
+    </section>
+
+    <section class="stats">
+      <div class="card card-chars">
+        <h2 class="card-title">Caracteres (con espacios)</h2>
+        <div class="card-value" id="charsCon">0</div>
+      </div>
+
+      <div class="card card-chars-nospace">
+        <h2 class="card-title">Caracteres (sin espacios)</h2>
+        <div class="card-value" id="charsSin">0</div>
+      </div>
+
+      <div class="card card-words">
+        <h2 class="card-title">Palabras</h2>
+        <div class="card-value" id="palabras">0</div>
+      </div>
+
+      <div class="card card-sentences">
+        <h2 class="card-title">Oraciones</h2>
+        <div class="card-value" id="oraciones">0</div>
+      </div>
+
+      <div class="card card-time">
+        <h2 class="card-title">Tiempo estimado de lectura</h2>
+        <div class="card-value" id="tiempo">0 min</div>
+      </div>
+    </section>
+  </main>
+
+  <script src="analisis-texto.js"></script>
+</body>
+</html>
